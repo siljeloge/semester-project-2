@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
+    <title>Edit Listing | MyBid</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./dist/css/styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md bg-white border-bottom">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html"> mybid<span>.</span> </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNav"></div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="listing-form-page">
+      <div class="container py-5">
+        <div class="listing-form-wrapper">
+          <div class="mb-4">
+            <h1>Edit listing</h1>
+            <p>Update the details for your auction listing.</p>
+          </div>
+
+          <form id="editListingForm">
+            <div class="mb-4">
+              <label for="title" class="form-label"> Title </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="description" class="form-label"> Description </label>
+
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="5"
+              ></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label"> Images </label>
+
+              <div id="mediaInputs"></div>
+
+              <div class="form-text mb-2">Add image URLs for your item.</div>
+
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                id="addImageBtn"
+              >
+                + Add another image
+              </button>
+            </div>
+
+            <div class="mb-4">
+              <label for="tags" class="form-label"> Tags </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="tags"
+                name="tags"
+                placeholder="electronics, camera, vintage"
+              />
+
+              <div class="form-text">Separate tags with commas.</div>
+            </div>
+
+            <div id="listingMessage" class="mb-4"></div>
+
+            <div
+              class="d-flex flex-column flex-sm-row justify-content-between gap-3"
+            >
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                id="deleteListingBtn"
+              >
+                Delete listing
+              </button>
+
+              <div class="d-flex gap-3">
+                <a href="./profile.html" class="btn btn-outline-primary">
+                  Cancel
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div
+          class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4"
+        >
+          <a class="footer-brand" href="./index.html"> mybid<span>.</span> </a>
+
+          <nav
+            class="footer-nav"
+            id="footerNav"
+            aria-label="Footer navigation"
+          ></nav>
+        </div>
+
+        <p class="copyright text-center mb-0">© 2026 MyBid</p>
+      </div>
+    </footer>
+    <script type="module" src="./src/js/bootstrap.js"></script>
+    <script type="module" src="./src/js/edit-listing.js"></script>
+    <script type="module" src="./src/js/ui/header.js"></script>
+    <script type="module" src="./src/js/ui/footer.js"></script>
+  </body>
+</html>

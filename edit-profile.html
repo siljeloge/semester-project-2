@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
+    <title>Edit Profile | MyBid</title>
+    <link rel="stylesheet" href="./dist/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md bg-white border-bottom">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">mybid<span>.</span></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNav"></div>
+        </div>
+      </nav>
+    </header>
+    <main class="listing-form-page">
+      <div class="container py-5">
+        <div class="listing-form-wrapper">
+          <div class="mb-4">
+            <h1>Edit profile</h1>
+            <p>Update your profile information.</p>
+          </div>
+          <form id="editProfileForm">
+            <div class="mb-4">
+              <label for="avatar" class="form-label"> Avatar URL </label>
+              <input
+                type="url"
+                class="form-control"
+                id="avatar"
+                name="avatar"
+                maxlength="300"
+                placeholder="https://example.com/avatar.jpg"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="banner" class="form-label"> Banner URL </label>
+              <input
+                type="url"
+                class="form-control"
+                id="banner"
+                name="banner"
+                maxlength="300"
+                placeholder="https://example.com/banner.jpg"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="bio" class="form-label"> Bio </label>
+              <textarea
+                class="form-control"
+                id="bio"
+                name="bio"
+                rows="5"
+                maxlength="160"
+                placeholder="Tell other users a little about yourself."
+              ></textarea>
+              <div class="form-text">Maximum 160 characters.</div>
+            </div>
+            <div id="profileMessage" class="mb-4"></div>
+            <div class="d-flex justify-content-end gap-3">
+              <a href="./profile.html" class="btn btn-outline-primary">
+                Cancel
+              </a>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div
+          class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4"
+        >
+          <a href="./index.html" class="footer-brand"> mybid<span>.</span> </a>
+          <nav class="footer-nav">
+            <a href="./index.html">Browse</a>
+            <a href="./create-listing.html">Sell</a>
+            <a href="./profile.html">My profile</a>
+          </nav>
+        </div>
+        <p class="copyright">© 2026 MyBid. Student auction marketplace.</p>
+      </div>
+    </footer>
+    <script type="module" src="./src/js/bootstrap.js"></script>
+    <script type="module" src="./src/js/edit-profile.js"></script>
+    <script type="module" src="./src/js/ui/header.js"></script>
+    <script type="module" src="./src/js/ui/footer.js"></script>
+  </body>
+</html>

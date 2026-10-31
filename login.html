@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
+    <title>Log in | MyBid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./dist/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md bg-white">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html"> mybid<span>.</span></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto align-items-md-center gap-md-3">
+              <li class="nav-item">
+                <a class="nav-link" href="./index.html">Browse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./login.html"> Log in </a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-primary" href="./register.html">Sign up</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="auth-page">
+      <div class="container">
+        <div class="auth-card">
+          <h1>Welcome back</h1>
+          <p class="auth-intro">Log in to start bidding and selling.</p>
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="student@stud.noroff.no"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <div id="loginMessage" class="mb-3" role="alert"></div>
+            <button class="btn btn-primary w-100" type="submit">Log in</button>
+          </form>
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="./register.html">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div
+          class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4"
+        >
+          <a class="footer-brand" href="./index.html">mybid<span>.</span></a>
+          <nav
+            class="footer-nav"
+            id="footerNav"
+            aria-label="Footer navigation"
+          ></nav>
+        </div>
+        <p class="copyright text-center mb-0">© 2026 MyBid</p>
+      </div>
+    </footer>
+    <script type="module" src="./src/js/bootstrap.js"></script>
+    <script type="module" src="./src/js/login.js"></script>
+    <script type="module" src="./src/js/ui/footer.js"></script>
+  </body>
+</html>

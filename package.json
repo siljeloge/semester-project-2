@@ -1,0 +1,27 @@
+{
+  "name": "semester-project-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "dev": "sass src/scss:dist/css --watch",
+  "build": "sass src/scss:dist/css --style=compressed"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siljeloge/semester-project-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siljeloge/semester-project-2/issues"
+  },
+  "homepage": "https://github.com/siljeloge/semester-project-2#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "sass": "^1.105.1"
+  }
+}
