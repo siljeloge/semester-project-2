@@ -1,12 +1,8 @@
-import {
-  getListing,
-  placeBid,
-} from "./api/listings.js";
 
+import { getListing, placeBid } from "./api/listings.js";
 import { getProfile } from "./api/profiles.js";
 
-const listingContainer =
-  document.querySelector("#listing");
+const listingContainer = document.querySelector("#listing");
 
 const token = localStorage.getItem("accessToken");
 const name = localStorage.getItem("name");
@@ -30,25 +26,15 @@ function getHighestBid(bids) {
  * @returns {string} The remaining time.
  */
 function formatTimeLeft(endsAt) {
-  const end = new Date(endsAt);
-  const now = new Date();
-  const difference = end - now;
+  const difference = new Date(endsAt) - new Date();
 
   if (difference <= 0) {
     return "Ended";
   }
 
-  const days = Math.floor(
-    difference / (1000 * 60 * 60 * 24),
-  );
-
-  const hours = Math.floor(
-    (difference / (1000 * 60 * 60)) % 24,
-  );
-
-  const minutes = Math.floor(
-    (difference / (1000 * 60)) % 60,
-  );
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((difference / (1000 * 60)) % 60);
 
   if (days > 0) {
     return `${days}d ${hours}h left`;
@@ -72,6 +58,54 @@ function formatBidDate(date) {
 }
 
 /**
+ * Escapes special HTML characters in user-submitted content.
+ * @param {string} value - The text to escape.
+ * @returns {string} The escaped text.
+ */
+function escapeHTML(value) {
+  const entities = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  };
+
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    (character) => entities[character],
+  );
+}
+
+/**
+ * Returns a valid image URL or a placeholder.
+ * @param {string} url - The image URL.
+ * @returns {string} A valid HTTP or HTTPS image URL.
+ */
+function getSafeImageUrl(url) {
+  const placeholder = "https://placehold.co/800x600";
+
+  if (!url) {
+    return placeholder;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+
+    if (
+      parsedUrl.protocol === "https:" ||
+      parsedUrl.protocol === "http:"
+    ) {
+      return parsedUrl.href;
+    }
+  } catch {
+    return placeholder;
+  }
+
+  return placeholder;
+}
+
+/**
  * Creates the image gallery for a listing.
  * @param {Object} listing - The current listing.
  * @returns {string} HTML for the image gallery.
@@ -89,11 +123,19 @@ function createImageGallery(listing) {
 
   const mainImage = media[0];
 
+  const mainImageUrl = escapeHTML(
+    getSafeImageUrl(mainImage.url),
+  );
+
+  const mainImageAlt = escapeHTML(
+    mainImage.alt || listing.title,
+  );
+
   return `
     <div class="listing-gallery">
       <img
-        src="${mainImage.url}"
-        alt="${mainImage.alt || listing.title}"
+        src="${mainImageUrl}"
+        alt="${mainImageAlt}"
         class="listing-image"
         id="mainListingImage"
       />
@@ -107,18 +149,15 @@ function createImageGallery(listing) {
                   (image, index) => `
                     <button
                       type="button"
-                      class="listing-thumbnail ${
-                        index === 0 ? "active" : ""
-                      }"
-                      data-image="${image.url}"
-                      data-alt="${
-                        image.alt || listing.title
-                      }"
+                      class="listing-thumbnail ${index === 0 ? "active" : ""}"
+                      data-image="${escapeHTML(getSafeImageUrl(image.url))}"
+                      data-alt="${escapeHTML(image.alt || listing.title)}"
                       aria-label="View image ${index + 1}"
                     >
                       <img
-                        src="${image.url}"
+                        src="${escapeHTML(getSafeImageUrl(image.url))}"
                         alt=""
+                        loading="lazy"
                       />
                     </button>
                   `,
@@ -139,14 +178,21 @@ function createImageGallery(listing) {
  * @returns {string} HTML for the bidding section.
  */
 function createBidSection(listing, profile) {
+  if (new Date(listing.endsAt) <= new Date()) {
+    return `
+      <div class="visitor-bid-box">
+        <h2>Auction ended</h2>
+        <p>This auction is no longer accepting bids.</p>
+      </div>
+    `;
+  }
+
   if (!token || !profile) {
     return `
       <div class="visitor-bid-box">
         <h2>Want to place a bid?</h2>
 
-        <p>
-          Log in to bid on this listing.
-        </p>
+        <p>Log in to bid on this listing.</p>
 
         <a
           href="./login.html"
@@ -163,12 +209,10 @@ function createBidSection(listing, profile) {
       <div class="visitor-bid-box">
         <h2>Your listing</h2>
 
-        <p>
-          You cannot bid on your own listing.
-        </p>
+        <p>You cannot bid on your own listing.</p>
 
         <a
-          href="./edit-listing.html?id=${listing.id}"
+          href="./edit-listing.html?id=${escapeHTML(encodeURIComponent(listing.id))}"
           class="btn btn-outline-primary"
         >
           Edit listing
@@ -198,6 +242,7 @@ function createBidSection(listing, profile) {
             id="bidAmount"
             name="bidAmount"
             min="${highestBid + 1}"
+            step="1"
             required
           />
         </div>
@@ -213,6 +258,7 @@ function createBidSection(listing, profile) {
         <div
           id="bidMessage"
           class="mb-3"
+          aria-live="polite"
         ></div>
 
         <button
@@ -230,11 +276,8 @@ function createBidSection(listing, profile) {
  * Sets up the image gallery thumbnail buttons.
  */
 function setupImageGallery() {
-  const mainImage =
-    document.querySelector("#mainListingImage");
-
-  const thumbnails =
-    document.querySelectorAll(".listing-thumbnail");
+  const mainImage = document.querySelector("#mainListingImage");
+  const thumbnails = document.querySelectorAll(".listing-thumbnail");
 
   if (!mainImage || thumbnails.length === 0) {
     return;
@@ -274,7 +317,7 @@ function displayListing(listing, profile = null) {
         </span>
 
         <h1 class="listing-title">
-          ${listing.title}
+          ${escapeHTML(listing.title)}
         </h1>
 
         <div class="listing-bid">
@@ -294,15 +337,12 @@ function displayListing(listing, profile = null) {
         <p class="listing-seller">
           Listed by
           <strong>
-            ${listing.seller?.name || "Unknown"}
+            ${escapeHTML(listing.seller?.name || "Unknown")}
           </strong>
         </p>
 
         <p class="listing-description">
-          ${
-            listing.description ||
-            "No description provided."
-          }
+          ${escapeHTML(listing.description || "No description provided.")}
         </p>
 
         ${createBidSection(listing, profile)}
@@ -327,18 +367,12 @@ function displayListing(listing, profile = null) {
 
                 <tbody>
                   ${[...listing.bids]
-                    .sort(
-                      (a, b) =>
-                        b.amount - a.amount,
-                    )
+                    .sort((a, b) => b.amount - a.amount)
                     .map(
                       (bid) => `
                         <tr>
                           <td>
-                            ${
-                              bid.bidder?.name ||
-                              "Unknown"
-                            }
+                            ${escapeHTML(bid.bidder?.name || "Unknown")}
                           </td>
 
                           <td>
@@ -349,9 +383,7 @@ function displayListing(listing, profile = null) {
                           </td>
 
                           <td>
-                            ${formatBidDate(
-                              bid.created,
-                            )}
+                            ${formatBidDate(bid.created)}
                           </td>
                         </tr>
                       `,
@@ -372,45 +404,55 @@ function displayListing(listing, profile = null) {
 
   setupImageGallery();
 
-  const bidForm =
-    document.querySelector("#bidForm");
+  const bidForm = document.querySelector("#bidForm");
 
   if (bidForm) {
-    bidForm.addEventListener(
-      "submit",
-      async (event) => {
-        event.preventDefault();
+    bidForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-        const bidMessage =
-          document.querySelector("#bidMessage");
+      const bidMessage = document.querySelector("#bidMessage");
+      const bidInput = document.querySelector("#bidAmount");
+      const submitButton = bidForm.querySelector('button[type="submit"]');
 
-        const bidAmount = Number(
-          document.querySelector("#bidAmount").value,
-        );
+      const bidAmount = Number(bidInput.value);
+      const minimumBid = getHighestBid(listing.bids) + 1;
 
-        try {
-          await placeBid(listing.id, bidAmount);
+      if (!Number.isSafeInteger(bidAmount) || bidAmount < minimumBid) {
+        bidMessage.textContent = `Your bid must be at least ${minimumBid} credits and a whole number.`;
+        bidMessage.className = "alert alert-danger";
+        return;
+      }
 
-          bidMessage.textContent =
-            "Bid placed successfully!";
+      if (new Date(listing.endsAt) <= new Date()) {
+        bidMessage.textContent = "This auction has ended.";
+        bidMessage.className = "alert alert-danger";
+        return;
+      }
 
-          bidMessage.className =
-            "alert alert-success";
+      submitButton.disabled = true;
 
-          setTimeout(() => {
-            loadListing();
-          }, 800);
-        } catch (error) {
-          console.error(error);
+      try {
+        await placeBid(listing.id, bidAmount);
 
-          bidMessage.textContent =
-            error.message;
+        bidMessage.textContent = "Bid placed successfully!";
+        bidMessage.className = "alert alert-success";
 
-          bidMessage.className =
-            "alert alert-danger";
-        }
-      },
-    );
+        // Tell the header to refresh the credit balance.
+        document.dispatchEvent(new Event("creditsUpdated"));
+
+        setTimeout(() => {
+          loadListing();
+        }, 800);
+      } catch (error) {
+        console.error(error);
+
+        bidMessage.textContent =
+          error.message || "Could not place your bid.";
+
+        bidMessage.className = "alert alert-danger";
+        submitButton.disabled = false;
+      }
+    });
   }
 }
 
@@ -418,17 +460,13 @@ function displayListing(listing, profile = null) {
  * Loads a single listing using the ID from the URL.
  */
 async function loadListing() {
-  const params = new URLSearchParams(
-    window.location.search,
-  );
-
+  const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
   if (!id) {
     listingContainer.innerHTML = `
       <p>Listing not found.</p>
     `;
-
     return;
   }
 
@@ -438,7 +476,11 @@ async function loadListing() {
     let profile = null;
 
     if (token && name) {
-      profile = await getProfile(name);
+      try {
+        profile = await getProfile(name);
+      } catch (error) {
+        console.error("Could not load profile:", error);
+      }
     }
 
     displayListing(listing, profile);

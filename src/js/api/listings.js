@@ -21,10 +21,7 @@ export async function getListings() {
 
     const result = await response.json();
 
-    allListings = [
-      ...allListings,
-      ...result.data,
-    ];
+    allListings.push(...result.data);
 
     hasMorePages = !result.meta.isLastPage;
 
