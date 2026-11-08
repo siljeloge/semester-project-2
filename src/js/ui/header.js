@@ -134,7 +134,7 @@ function renderLoggedInHeader(profile = null) {
   const credits = Number(profile?.credits);
 
   mainNav.innerHTML = `
-    <ul class="navbar-nav ms-auto align-items-md-center gap-md-3">
+  <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
       <li class="nav-item">
         <a
           class="nav-link"

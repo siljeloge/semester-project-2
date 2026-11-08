@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Create your MyBid account to start bidding, selling, and exploring student auctions."
+    />
     <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
     <title>Sign up | MyBid</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,10 +18,14 @@
     <link rel="stylesheet" href="./dist/css/styles.css" />
   </head>
   <body>
+    <!-- Header -->
     <header>
-      <nav class="navbar navbar-expand-md bg-white">
+      <nav
+        class="navbar navbar-expand-lg bg-white"
+        aria-label="Main navigation"
+      >
         <div class="container">
-          <a class="navbar-brand" href="./index.html">mybid<span>.</span></a>
+          <a class="navbar-brand" href="./index.html"> mybid<span>.</span> </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -38,13 +46,20 @@
                 <a class="nav-link" href="./login.html">Log in</a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-primary" href="./register.html">Sign up</a>
+                <a
+                  class="btn btn-primary"
+                  href="./register.html"
+                  aria-current="page"
+                >
+                  Sign up
+                </a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+    <!-- Registration -->
     <main class="auth-page">
       <div class="container">
         <div class="auth-card">
@@ -53,54 +68,66 @@
             Join MyBid and start bidding on student auctions.
           </p>
           <form id="registerForm">
+            <!-- Username -->
             <div class="mb-3">
-              <label for="name" class="form-label">Username</label>
+              <label for="name" class="form-label"> Username </label>
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 name="name"
+                autocomplete="username"
                 required
               />
             </div>
+            <!-- Email -->
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
+              <label for="email" class="form-label"> Email </label>
               <input
                 type="email"
                 class="form-control"
                 id="email"
                 name="email"
                 placeholder="student@stud.noroff.no"
+                autocomplete="email"
+                pattern=".+@stud\.noroff\.no"
+                title="Please use your @stud.noroff.no email address."
+                aria-describedby="emailHelp"
                 required
               />
-              <div class="form-text">
+              <div class="form-text" id="emailHelp">
                 You must use your @stud.noroff.no email.
               </div>
             </div>
+            <!-- Password -->
             <div class="mb-4">
-              <label for="password" class="form-label">Password</label>
+              <label for="password" class="form-label"> Password </label>
               <input
                 type="password"
                 class="form-control"
                 id="password"
                 name="password"
                 minlength="8"
+                autocomplete="new-password"
+                aria-describedby="passwordHelp"
                 required
               />
-              <div class="form-text">
+              <div class="form-text" id="passwordHelp">
                 Password must be at least 8 characters.
               </div>
             </div>
-            <div id="registerMessage" class="mb-3" role="alert"></div>
+            <!-- Feedback -->
+            <div id="registerMessage" class="mb-3" aria-live="polite"></div>
             <button class="btn btn-primary w-100" type="submit">Sign up</button>
           </form>
           <p class="auth-switch">
             Already have an account?
-            <a href="./login.html"> Log in </a>
+            <a href="./login.html">Log in</a>
           </p>
         </div>
       </div>
     </main>
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
         <div

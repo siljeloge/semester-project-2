@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Log in to MyBid to browse student auctions, place bids, and sell items."
+    />
     <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
     <title>Log in | MyBid</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,10 +18,14 @@
     <link rel="stylesheet" href="./dist/css/styles.css" />
   </head>
   <body>
+    <!-- Header -->
     <header>
-      <nav class="navbar navbar-expand-md bg-white">
+      <nav
+        class="navbar navbar-expand-lg bg-white"
+        aria-label="Main navigation"
+      >
         <div class="container">
-          <a class="navbar-brand" href="./index.html"> mybid<span>.</span></a>
+          <a class="navbar-brand" href="./index.html"> mybid<span>.</span> </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -35,16 +43,19 @@
                 <a class="nav-link" href="./index.html">Browse</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./login.html"> Log in </a>
+                <a class="nav-link" href="./login.html" aria-current="page">
+                  Log in
+                </a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-primary" href="./register.html">Sign up</a>
+                <a class="btn btn-primary" href="./register.html"> Sign up </a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+    <!-- Login -->
     <main class="auth-page">
       <div class="container">
         <div class="auth-card">
@@ -59,20 +70,24 @@
                 id="email"
                 name="email"
                 placeholder="student@stud.noroff.no"
+                autocomplete="email"
+                aria-describedby="loginMessage"
                 required
               />
             </div>
             <div class="mb-4">
-              <label for="password" class="form-label">Password</label>
+              <label for="password" class="form-label"> Password </label>
               <input
                 type="password"
                 class="form-control"
                 id="password"
                 name="password"
+                autocomplete="current-password"
+                aria-describedby="loginMessage"
                 required
               />
             </div>
-            <div id="loginMessage" class="mb-3" role="alert"></div>
+            <div id="loginMessage" class="mb-3" aria-live="polite"></div>
             <button class="btn btn-primary w-100" type="submit">Log in</button>
           </form>
           <p class="auth-switch">
@@ -82,12 +97,13 @@
         </div>
       </div>
     </main>
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
         <div
           class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4"
         >
-          <a class="footer-brand" href="./index.html">mybid<span>.</span></a>
+          <a class="footer-brand" href="./index.html"> mybid<span>.</span> </a>
           <nav
             class="footer-nav"
             id="footerNav"

@@ -3,27 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="View auction details, explore images, and place bids on student listings at MyBid."
+    />
     <link rel="icon" type="image/png" href="./assets/mybid-favicon.png" />
     <title>Listing | MyBid</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="./dist/css/styles.css" />
   </head>
-
   <body>
     <!-- Header -->
     <header>
-      <nav class="navbar navbar-expand-md bg-white">
+      <nav
+        class="navbar navbar-expand-lg bg-white"
+        aria-label="Main navigation"
+      >
         <div class="container">
           <a class="navbar-brand" href="./index.html"> mybid<span>.</span> </a>
-
           <button
             class="navbar-toggler"
             type="button"
@@ -35,17 +37,14 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-
           <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto align-items-md-center gap-md-3">
               <li class="nav-item">
-                <a class="nav-link" href="./index.html"> Browse </a>
+                <a class="nav-link" href="./index.html">Browse</a>
               </li>
-
               <li class="nav-item">
-                <a class="nav-link" href="./login.html"> Log in </a>
+                <a class="nav-link" href="./login.html">Log in</a>
               </li>
-
               <li class="nav-item">
                 <a class="btn btn-primary" href="./register.html"> Sign up </a>
               </li>
@@ -54,18 +53,15 @@
         </div>
       </nav>
     </header>
-
     <!-- Listing -->
     <main class="listing-page py-5">
       <div class="container">
         <a href="./index.html" class="back-link"> ← Back to listings </a>
-
         <div id="listing" class="mt-4">
-          <p>Loading listing...</p>
+          <p role="status">Loading listing...</p>
         </div>
       </div>
     </main>
-
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container">
@@ -73,14 +69,12 @@
           class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4"
         >
           <a class="footer-brand" href="./index.html"> mybid<span>.</span> </a>
-
           <nav
             class="footer-nav"
             id="footerNav"
             aria-label="Footer navigation"
           ></nav>
         </div>
-
         <p class="copyright text-center mb-0">© 2026 MyBid</p>
       </div>
     </footer>

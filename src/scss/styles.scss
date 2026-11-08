@@ -89,12 +89,13 @@ body {
 
 .ending-soon {
   background-color: $light;
+}
 
-  h2 {
-    font-size: 32px;
-    line-height: 40px;
-    font-weight: 700;
-  }
+.ending-soon h2,
+.browse-listings h2 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
 }
 
 .section-link {
@@ -168,12 +169,6 @@ body {
 
 .browse-listings {
   background-color: $light;
-
-  h2 {
-    font-size: 32px;
-    line-height: 40px;
-    font-weight: 700;
-  }
 }
 
 .filter-btn {
@@ -629,6 +624,23 @@ body {
   }
 }
 
+// Keyboard focus for custom interactive elements
+.auction-card-link:focus-visible,
+.filter-btn:focus-visible,
+.profile-button:focus-visible,
+.profile-menu a:focus-visible,
+.profile-menu button:focus-visible,
+.listing-thumbnail:focus-visible {
+  outline: 3px solid $success;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auction-card {
+    transition: none;
+  }
+}
+
 // Mobile profile name
 
 .mobile-profile-row {
@@ -786,60 +798,6 @@ body {
     width: 100%;
   }
 
-  // Mobile navigation
-
-  .navbar-collapse {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  .navbar-collapse .navbar-nav {
-    gap: 0;
-  }
-
-  .navbar-collapse .nav-link {
-    display: block;
-    padding: 12px 0;
-    font-weight: 600;
-    color: $mybid-text;
-  }
-
-  .navbar-collapse .credit-badge {
-    display: inline-block;
-    margin: 12px 0;
-  }
-
-  .navbar-collapse .profile-menu-wrapper {
-    position: relative;
-    padding-top: 4px;
-  }
-
-  .navbar-collapse .profile-button {
-    width: 44px;
-    height: 44px;
-  }
-
-  .navbar-collapse .profile-avatar {
-    width: 44px;
-    height: 44px;
-  }
-
-  .navbar-collapse .profile-menu {
-    top: 52px;
-    left: 0;
-    right: auto;
-  }
-
-  .mobile-profile-row {
-    gap: 12px;
-  }
-
-  .mobile-profile-name {
-    display: inline;
-    font-weight: 600;
-    color: $mybid-text;
-  }
-
   // Single listing page
 
   .listing-page {
@@ -892,6 +850,13 @@ body {
   .bid-table td {
     padding: 14px;
     vertical-align: middle;
+  }
+
+  // Profile and authentication headings
+  .profile-details h1,
+  .auth-card h1 {
+    font-size: 34px;
+    line-height: 1.2;
   }
 
   // Forms
