@@ -1,6 +1,6 @@
-
 import { getListing, placeBid } from "./api/listings.js";
 import { getProfile } from "./api/profiles.js";
+import "./ui/image-fallback.js";
 
 const listingContainer = document.querySelector("#listing");
 
@@ -83,7 +83,7 @@ function escapeHTML(value) {
  * @returns {string} A valid HTTP or HTTPS image URL.
  */
 function getSafeImageUrl(url) {
-  const placeholder = "https://placehold.co/800x600";
+  const placeholder = "./assets/no_image_yet.png";
 
   if (!url) {
     return placeholder;
@@ -116,7 +116,7 @@ function createImageGallery(listing) {
       ? listing.media
       : [
           {
-            url: "https://placehold.co/800x600",
+            url: "./assets/no_image_yet.png",
             alt: listing.title,
           },
         ];

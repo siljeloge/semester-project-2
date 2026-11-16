@@ -1,4 +1,5 @@
 import { getListings } from "./api/listings.js";
+import "./ui/image-fallback.js";
 
 const listingsContainer = document.querySelector("#listings");
 const endingSoonContainer = document.querySelector("#endingSoonListings");
@@ -78,7 +79,7 @@ function escapeHTML(value) {
  * @returns {string} A safe image URL.
  */
 function getSafeImageUrl(url) {
-  const placeholder = "https://placehold.co/600x400";
+  const placeholder = "./assets/no_image_yet.png";
 
   if (!url) {
     return placeholder;

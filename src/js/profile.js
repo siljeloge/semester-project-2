@@ -3,6 +3,7 @@ import {
   getProfileListings,
   getProfileBids,
 } from "./api/profiles.js";
+import "./ui/image-fallback.js";
 
 const profileContainer = document.querySelector("#profile");
 
@@ -73,7 +74,7 @@ function escapeHTML(value) {
  */
 function getSafeImageUrl(
   url,
-  placeholder = "https://placehold.co/600x400",
+  placeholder = "./assets/no_image_yet.png",
 ) {
   if (!url) {
     return placeholder;
